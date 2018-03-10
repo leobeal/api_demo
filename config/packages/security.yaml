@@ -1,0 +1,22 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+          from_db:
+            entity:
+                class: App\Entity\User
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            guard:
+              authenticators:
+                - App\Security\TokenAuthenticator
+
+    access_control:
+        #{ path: ^/api, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }

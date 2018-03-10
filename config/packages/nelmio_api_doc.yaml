@@ -1,0 +1,10 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: API documentation
+            description: Documntation for the Products management example
+            version: 1.0.0
+    #areas:
+        #path_patterns: # an array of regexps
+            #- ^/api(?!/doc$)
+
