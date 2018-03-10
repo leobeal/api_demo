@@ -28,3 +28,8 @@ services:
     jms_serializer.object_constructor:
       alias: jms_serializer.doctrine_object_constructor
       public: false
+
+    #Registers the ExceptionListener
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
