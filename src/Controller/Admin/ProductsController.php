@@ -4,17 +4,15 @@ namespace App\Controller\Admin;
 
 use App\Exceptions\InvalidParametersException;
 use App\Service\ProductsService;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Swagger\Annotations as SWG;
 use JMS\Serializer\SerializerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProductsController extends Controller
 {
@@ -47,7 +45,7 @@ class ProductsController extends Controller
     public function store(Request $request, AuthorizationCheckerInterface $authChecker)
     {
         if (!$authChecker->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException();
+            throw new AccessDeniedException("The user appears to be logged but it does not have the 'ROLE_ADMIN'");
         }
 
         $product = $this->productsService->save($request->getContent());
