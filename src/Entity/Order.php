@@ -44,6 +44,12 @@ class Order
      */
     private $user;
 
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, nullable=false)
+     */
+    private $price;
+
     public function getId(): int
     {
         return $this->id;
@@ -80,6 +86,17 @@ class Order
     public function setUser(UserInterface $user): Order
     {
         $this->user = $user;
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): Order
+    {
+        $this->price = $price;
         return $this;
     }
 }
