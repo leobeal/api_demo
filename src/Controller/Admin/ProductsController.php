@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Exceptions\InvalidParametersException;
 use App\Service\ProductsService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -41,6 +42,7 @@ class ProductsController extends Controller
      *     )
      * )
      * @SWG\Tag(name="product")
+     * @throws InvalidParametersException
      */
     public function store(Request $request, AuthorizationCheckerInterface $authChecker)
     {
