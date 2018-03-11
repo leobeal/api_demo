@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Bundle;
 use App\Entity\Discount;
 use App\Entity\Product;
 use App\Exceptions\InvalidParametersException;
@@ -31,6 +32,9 @@ class ProductsService
         return $this->repository->findAll();
     }
 
+    /**
+     * @throws InvalidParametersException
+     */
     public function save($json): Product
     {
         $content = json_decode($json, true);
@@ -39,11 +43,17 @@ class ProductsService
 
         $children = isset($content["children"]) ? $content["children"] : [];
 
-        $product = new Product();
+        if($content["type"] == "product"){
+            $product = new Product();
+        }elseif($content["type"] == "bundle"){
+            $product = new Bundle();
+        }else{
+            throw new InvalidParametersException("The type does not exist");
+        }
         $product->setName($content["name"]);
         $product->setDescription($content["description"]);
         $product->setPrice($content["price"]);
-        $product->setType($content["type"]);
+
         $product->setCategory($category);
 
         $product->setCreatedAt(new \DateTime());
@@ -51,8 +61,8 @@ class ProductsService
 
         $this->repository->save($product);
 
-        if ($content['type'] == "grouped" && count($children) == 0) {
-            throw new InvalidParametersException("When creating a grouped product, children array must be specified and cannot be empty");
+        if ($product instanceof Bundle && count($children) == 0) {
+            throw new InvalidParametersException("When creating a Bundle, children array must be specified and cannot be empty");
         }
 
         foreach ($children as $id) {

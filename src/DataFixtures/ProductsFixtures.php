@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Bundle;
 use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -23,6 +25,20 @@ class ProductsFixtures extends Fixture
         // create 20 products! Bam!
         for ($i = 0; $i < 20; $i++) {
             $product = new Product();
+            $product->setName('product ' . $i);
+            $product->setDescription('desc ' . $i);
+            $product->setCreatedAt(new \DateTime());
+            $product->setUpdatedAt(new \DateTime());
+            $product->setCategory($category);
+
+
+            $product->setPrice(mt_rand(10, 100));
+            $manager->persist($product);
+        }
+
+        // create 20 products! Bam!
+        for ($i = 0; $i < 20; $i++) {
+            $product = new Bundle();
             $product->setName('product ' . $i);
             $product->setDescription('desc ' . $i);
             $product->setCreatedAt(new \DateTime());

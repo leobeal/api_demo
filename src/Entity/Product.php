@@ -10,6 +10,11 @@ use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"product" = "Product", "bundle" = "Bundle"})
  */
 class Product
 {
@@ -19,8 +24,6 @@ class Product
     {
         $this->createdAt= new \DateTime();
         $this->updatedAt= new \DateTime();
-
-        $this->children = new ArrayCollection();
         $this->bundles = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->carts = new ArrayCollection();
@@ -52,12 +55,6 @@ class Product
      * @ORM\Column(type="decimal", scale=2, nullable=false)
      */
     private $price;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", columnDefinition="ENUM('normal', 'grouped')")
-     */
-    private $type;
 
     /**
      * @var Discount|null
@@ -97,41 +94,12 @@ class Product
      */
     private $bundles;
 
-    /**
-     * A Bundle (Product) can have more than one (child)product
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="parent")
-     * @ORM\JoinTable(name="bundles",
-     *      joinColumns={@ORM\JoinColumn(name="parent_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="children_id", referencedColumnName="id")}
-     *      )
-     */
-    private $children;
-
-
-    public function getChildren() : ArrayCollection
-    {
-        return $this->children;
-    }
-
-    public function setChildren(ArrayCollection $children): Product
-    {
-        $this->children = $children;
-        return $this;
-    }
-
-    public function addChildren(Product $product): Product
-    {
-        $this->children->add($product);
-        return $this;
-    }
-
     public function getBundles(): ArrayCollection
     {
         return $this->bundles;
     }
 
-    public function setBundles(ArrayCollection $bundles): Product
+    public function setBundles(ArrayCollection $bundles): self
     {
         $this->bundles = $bundles;
         return $this;
@@ -143,7 +111,7 @@ class Product
         return $this->id;
     }
 
-    public function setId(int $id): Product
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
@@ -154,7 +122,7 @@ class Product
         return $this->name;
     }
 
-    public function setName(string $name): Product
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
@@ -165,7 +133,7 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(string $description): Product
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
@@ -176,20 +144,9 @@ class Product
         return (float)number_format((float)$this->price, 2);
     }
 
-    public function setPrice(float $price): Product
+    public function setPrice(float $price): self
     {
         $this->price = $price;
-        return $this;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): Product
-    {
-        $this->type = $type;
         return $this;
     }
 
@@ -198,7 +155,7 @@ class Product
         return $this->discount;
     }
 
-    public function setDiscount(?Discount $discount): Product
+    public function setDiscount(?Discount $discount): self
     {
         $this->discount = $discount;
         return $this;
@@ -209,7 +166,7 @@ class Product
         return $this->category;
     }
 
-    public function setCategory(Category $category): Product
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
         return $this;
@@ -220,13 +177,13 @@ class Product
         return $this->orders;
     }
 
-    public function setOrders(ArrayCollection $orders): Product
+    public function setOrders(ArrayCollection $orders): self
     {
         $this->orders = $orders;
         return $this;
     }
 
-    public function addOrder(Order $order): Product
+    public function addOrder(Order $order): self
     {
         $this->orders->add($order);
         return $this;
@@ -237,13 +194,13 @@ class Product
         return $this->carts;
     }
 
-    public function setCarts(ArrayCollection $carts): Product
+    public function setCarts(ArrayCollection $carts): self
     {
         $this->carts = $carts;
         return $this;
     }
 
-    public function addCart(ShoppingCart $cart): Product
+    public function addCart(ShoppingCart $cart): self
     {
         $this->carts->add($cart);
         return $this;
