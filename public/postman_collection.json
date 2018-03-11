@@ -101,40 +101,6 @@
 				"description": ""
 			},
 			"response": []
-		},
-		{
-			"name": "create bundle",
-			"request": {
-				"url": "https://leobeal.com/bundle",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n\t1, 2\n]"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "edit bundle",
-			"request": {
-				"url": "https://leobeal.com/bundle/1",
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n\t1, 2\n]"
-				},
-				"description": ""
-			},
-			"response": []
 		}
 	]
 }
