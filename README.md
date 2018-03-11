@@ -4,8 +4,19 @@
 git clone git@github.com:leobeal/api_demo.git
 cd api_demo
 
+cp env.dist .env
+
 composer install
 
+```
+- Adjust DB settings in `.env`
+```shell
+#Creates the db
+php bin/console doctrine:database:create
+#Creates tables
+php bin/console doctrine:schema:update --force
+#Creates dummy products
+php bin/console doctrine:fixtures:load --append
 ```
 
 # Routes available
