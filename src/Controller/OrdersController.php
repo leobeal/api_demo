@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Exceptions\UserNotLoggedInException;
 use App\Service\OrdersService;
 use Doctrine\ORM\EntityNotFoundException;
 use JMS\Serializer\SerializerInterface;
@@ -24,10 +24,15 @@ class OrdersController extends Controller
 
     /**
      * @Route("order/create", name="createOrder", methods="POST")
+     * @throws UserNotLoggedInException
      * @throws EntityNotFoundException
      */
-    public function store(UserInterface $user)
+    public function store(UserInterface $user = null)
     {
+        if(!$user){
+            throw new UserNotLoggedInException();
+        }
+
         $order = $this->ordersService->save($user);
 
         return JsonResponse::fromJsonString($this->serializer->serialize($order, 'json'));

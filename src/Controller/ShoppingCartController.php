@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Exceptions\InvalidParametersException;
+use App\Exceptions\UserNotLoggedInException;
 use App\Service\ShoppingCartService;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,9 +25,14 @@ class ShoppingCartController extends Controller
 
     /**
      * @Route("basket/add/{id}", name="saveBasket", methods="PUT")
+     * @throws UserNotLoggedInException
+     * @throws InvalidParametersException
      */
     public function store(Product $product, UserInterface $user = null)
     {
+        if(!$user){
+            throw new UserNotLoggedInException();
+        }
         $shoppingCart = $this->shoppingCartService->save($product, $user);
 
         return JsonResponse::fromJsonString($this->serializer->serialize($shoppingCart, 'json'));
