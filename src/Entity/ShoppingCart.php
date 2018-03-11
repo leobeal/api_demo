@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Traits\TimestampTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -16,10 +17,10 @@ class ShoppingCart
 
     public function __construct()
     {
-        $this->createdAt= new \DateTime();
-        $this->updatedAt= new \DateTime();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
 
-        $this->products= new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -81,5 +82,20 @@ class ShoppingCart
     {
         $this->user = $user;
         return $this;
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("totalPrice")
+     */
+    public function finalPrice(): float
+    {
+        $totalPrice = 0;
+        foreach ($this->getProducts() as $p) {
+            /** @var Product $p */
+            $totalPrice += $p->finalPrice();
+        }
+
+        return $totalPrice;
     }
 }
