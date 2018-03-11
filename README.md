@@ -25,7 +25,7 @@ php bin/console doctrine:fixtures:load --append
 
 # Online example
 
-A working version of this demo can be found in [https://leobeal.com](https://leobeal.com)
+The docs for a working version of this demo can be found [here](https://leobeal.com/api/docs). Products can be seen [here](https://leobeal.com/api/products)
 
 ## Using Postman
 
