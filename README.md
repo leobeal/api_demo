@@ -54,3 +54,7 @@ VALUES
 # Running tests
 
 `./vendor/bin/simple-phpunit`
+
+# Database model
+
+![routes](public/images/model.png)
