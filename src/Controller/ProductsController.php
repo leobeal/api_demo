@@ -32,7 +32,8 @@ class ProductsController extends Controller
      *     description="List all the products",
      *     @SWG\Schema(
      *         type="array",
-     *         @Model(type=App\Entity\Product::class, groups={"full"})
+     *         @Model(type=App\Entity\Product::class)
+     *
      *     )
      * )
      * @SWG\Tag(name="product")

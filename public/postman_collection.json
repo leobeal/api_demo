@@ -71,13 +71,14 @@
 		{
 			"name": "add to basket",
 			"request": {
-				"url": "https://leobeal.com/basket/add/1",
+				"url": "https://leobeal.com/api/basket/add/1",
 				"method": "PUT",
 				"header": [
 					{
-						"key": "X-AUTH-TOKEN",
-						"value": "api_key_user",
-						"description": ""
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
 					}
 				],
 				"body": {},
@@ -88,7 +89,7 @@
 		{
 			"name": "create order",
 			"request": {
-				"url": "https://leobeal.com/order/create",
+				"url": "https://leobeal.com/api/order/create",
 				"method": "POST",
 				"header": [
 					{
