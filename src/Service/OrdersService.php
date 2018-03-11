@@ -9,6 +9,7 @@ use App\Repository\OrderRepository;
 use App\Repository\ShoppingCartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class OrdersService
 {
@@ -26,7 +27,7 @@ class OrdersService
     /**
      * @throws EntityNotFoundException
      */
-    public function save(User $user): Order
+    public function save(UserInterface $user): Order
     {
         $shoppingCart = $this->shoppingCartRepository->findOneBy(['user' => $user]);
 
@@ -51,6 +52,7 @@ class OrdersService
         }
 
         $this->em->persist($order);
+        $this->em->remove($shoppingCart);
 
         $this->em->flush();
 
