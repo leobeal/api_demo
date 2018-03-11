@@ -97,7 +97,13 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return array('ROLE_ADMIN');
+        // This is, of course just for "testing purposes"
+        switch ($this->getUsername()){
+            case "normal user" : $roles = ['ROLE_USER']; break;
+            case "admin user" :$roles = ['ROLE_ADMIN']; break;
+            default: $roles = [];
+        }
+        return $roles;
     }
 
     public function getPassword()

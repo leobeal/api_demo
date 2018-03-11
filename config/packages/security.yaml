@@ -4,7 +4,7 @@ security:
           from_db:
             entity:
                 class: App\Entity\User
-                property: username
+                property: apiKey
                 # if you're using multiple entity managers
                 # manager_name: customer
     firewalls:
