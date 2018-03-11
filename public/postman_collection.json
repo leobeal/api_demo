@@ -1,0 +1,140 @@
+{
+	"variables": [],
+	"info": {
+		"name": "prod api",
+		"_postman_id": "0eaa34a0-4883-3d12-ef9f-d26ac9ab94ff",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "see products",
+			"request": {
+				"url": "https://leobeal.com/api/products",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create product",
+			"request": {
+				"url": "https://leobeal.com/api/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "api_key_admin",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"New amazing product\",\n\t\"description\": \"This is the amazing product\",\n\t\"price\" : 90.0,\n\t\"type\" : \"product\",\n\t\"category\": {\n\t    \"id\": 1\n\t},\n\t\"discount\": {\n\t    \"type\": \"percentage\",\n\t    \"discount\": 10\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create Bundle",
+			"request": {
+				"url": "https://leobeal.com/api/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "api_key_admin",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"product 0\",\n\t\"description\": \"desc 0\",\n\t\"price\" : 10.20,\n\t\"type\" : \"bundle\",\n\t\"category\": {\n\t    \"id\": 1\n\t},\n\t\"children\":[\n\t\t1, 2\n\t],\n\t\"discount\": {\n\t    \"type\": \"percentage\",\n\t    \"discount\": 10\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add to basket",
+			"request": {
+				"url": "https://leobeal.com/basket/add/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "api_key_user",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"request": {
+				"url": "https://leobeal.com/order/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-AUTH-TOKEN",
+						"value": "api_key_user",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create bundle",
+			"request": {
+				"url": "https://leobeal.com/bundle",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t1, 2\n]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "edit bundle",
+			"request": {
+				"url": "https://leobeal.com/bundle/1",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t1, 2\n]"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
