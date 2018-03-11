@@ -39,3 +39,16 @@ Api docs are available under /docs.  Calls made to the api from docs might not w
 # Permissions
 - Admins can create products and bundles.
 - Normal users can see products, add a product to a cart, and create an order.
+
+Before you are able to run the application, the user table need to be populated, as requests to 
+
+```sql
+insert into category (name, created_at, updated_at) values ("Category name", NOW(), NOW());
+
+INSERT INTO `user` (`id`, `username`, `api_key`, `created_at`, `updated_at`)
+VALUES
+	(1, 'normal user', 'api_key_user',  NOW(),  NOW()),
+	(2, 'admin user', 'api_key_admin',  NOW(),  NOW());
+
+
+```
