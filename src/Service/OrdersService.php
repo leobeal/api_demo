@@ -39,6 +39,9 @@ class OrdersService
         $order = new Order();
         $order->setUser($user);
 
+        //calculates the order total price based on products in the shopping cart
+        $order->setPrice($shoppingCart->finalPrice());
+
         $this->em->persist($user);
         $this->em->persist($order);
 
