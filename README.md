@@ -49,6 +49,8 @@ INSERT INTO `user` (`id`, `username`, `api_key`, `created_at`, `updated_at`)
 VALUES
 	(1, 'normal user', 'api_key_user',  NOW(),  NOW()),
 	(2, 'admin user', 'api_key_admin',  NOW(),  NOW());
-
-
 ```
+
+# Running tests
+
+`./vendor/bin/simple-phpunit`
