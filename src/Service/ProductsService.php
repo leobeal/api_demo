@@ -41,6 +41,10 @@ class ProductsService
 
         $category = $this->categoryRepository->find($content["category"]["id"]);
 
+        if(!$category){
+            throw new InvalidParametersException("The Category does not exist");
+        }
+
         $children = isset($content["children"]) ? $content["children"] : [];
 
         if($content["type"] == "product"){
